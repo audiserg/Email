@@ -6,12 +6,6 @@ import java.util.Date;
 import java.util.Properties;
 
 public class MailSender {
-//    private String senderAddress;
-//    private String senderPassword;
-//    private String recipientsAddress;
-//    private String Subject;
-//    private String mailText;
-
 
     public static void main(String[] args) {
 

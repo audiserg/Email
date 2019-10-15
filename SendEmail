@@ -1,1 +1,46 @@
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Date;
+import java.util.Properties;
+
+public class MailSender {
+//    private String senderAddress;
+//    private String senderPassword;
+//    private String recipientsAddress;
+//    private String Subject;
+//    private String mailText;
+
+
+    public static void main(String[] args) {
+
+        Properties prop = new Properties();
+        prop.put("mail.transport.protocol", "smtp");
+        prop.put("mail.smtp.host", "smtp.gmail.com");
+        prop.put("mail.smtp.port", 587);
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.debug", "true");
+        prop.put("mail.smtp.starttls.enable", "true");
+
+        Session session = Session.getInstance (prop,
+                new Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication("yourAddress@gmail.com", "yourPassword");
+                    }
+                });
+        MimeMessage message = new MimeMessage(session);
+
+        try {
+            message.setFrom(new InternetAddress("yourAddress@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("XXX@gmail.com, XXX@gmail.com"));
+            message.setSubject("Javamail test");
+            message.setSentDate(new Date());
+            message.setText("Message text");
+            Transport.send(message);
+            System.out.println("Email Sent successfully....");
+        } catch (Exception e) {e.printStackTrace();}
+    }
+}
+
